@@ -1,3 +1,4 @@
+#include <Wire.h>
 #include <EEPROM24.h>
 
 EEPROM24_256 eeprom;
