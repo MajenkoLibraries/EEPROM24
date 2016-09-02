@@ -21,8 +21,7 @@ size_t EEPROM24::write(uint32_t addr, uint8_t b) {
     Wire.beginTransmission(_i2caddr);
     int res = Wire.endTransmission();
     uint32_t to = 100;
-    while (res != 0) {
-        delay(1);
+    while (res == 2) {
         Wire.beginTransmission(_i2caddr);
         res = Wire.endTransmission();
         to--;
@@ -34,11 +33,6 @@ size_t EEPROM24::write(uint32_t addr, uint8_t b) {
 }
 
 size_t EEPROM24::write(uint32_t addr, const uint8_t *bytes, uint32_t len) {
-
-//for (int i = 0; i < len; i++) {
-//    write(addr + i, bytes[i]);
-//}
-//return len;
 
     if (addr >= _bytes) {
         return 0;
@@ -55,10 +49,11 @@ size_t EEPROM24::write(uint32_t addr, const uint8_t *bytes, uint32_t len) {
         written++;
         addr++;
         if (addr >= _bytes) { // Terminate early - run out of space
+            Wire.endTransmission();
+            Wire.beginTransmission(_i2caddr);
             int res = Wire.endTransmission();
             uint32_t to = 100;
-            while (res != 0) {
-                delay(1);
+            while (res == 2) {
                 Wire.beginTransmission(_i2caddr);
                 res = Wire.endTransmission();
                 to--;
@@ -69,10 +64,11 @@ size_t EEPROM24::write(uint32_t addr, const uint8_t *bytes, uint32_t len) {
             return written;
         }
         if ((addr & (_page - 1)) == 0) { // Looped to start of page
-            int res = Wire.endTransmission();
+            Wire.endTransmission();
             uint32_t to = 100;
-            while (res != 0) {
-                delay(1);
+            Wire.beginTransmission(_i2caddr);
+            int res = Wire.endTransmission();
+            while (res == 2) {
                 Wire.beginTransmission(_i2caddr);
                 res = Wire.endTransmission();
                 to--;
@@ -86,10 +82,10 @@ size_t EEPROM24::write(uint32_t addr, const uint8_t *bytes, uint32_t len) {
         }
     }
     Wire.endTransmission();
+    Wire.beginTransmission(_i2caddr);
     int res = Wire.endTransmission();
-    uint32_t to = 10;
-    while (res != 0) {
-        delay(1);
+    uint32_t to = 100;
+    while (res == 2) {
         Wire.beginTransmission(_i2caddr);
         res = Wire.endTransmission();
         to--;
