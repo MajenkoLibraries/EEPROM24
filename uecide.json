@@ -1,18 +1,1 @@
-{
-    "name": "EEPROM24",
-    "provides": "EEPROM24.h",
-    "license": "LICENSE.md",
-    "readme": "README.md",
-    "description": "24xx EEPROM library",
-    "category": "Storage",
-    "subcategory": "EEPROM",
-    "maintainer": "Matt Jenkins <matt@majenko.co.uk>",
-    "version": "1.0.0",
-    "family": "all",
-    "core": "all",
-    "install": {
-        "examples": "/",
-        "EEPROM24.cpp": "/",
-        "EEPROM24.h": "/"
-    }
-}
+{"name":"EEPROM24","provides":"EEPROM24.h","license":"LICENSE.md","readme":"README.md","description":"24xx EEPROM library","category":"Storage","subcategory":"EEPROM","maintainer":"Matt Jenkins <matt@majenko.co.uk>","version":"1.0.1","family":"all","core":"all","install":{"examples":"\/","library.properties":"\/","src":"\/"}}
